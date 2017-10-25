@@ -12,9 +12,27 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "BASE_CHECKER_URL", "\"http://10.0.2.2:8080/\""
+        }
         release {
+            buildConfigField "String", "BASE_CHECKER_URL", "\"https://versioncontroller-184009\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "store"
+
+    productFlavors {
+        GooglePlay {
+            flavorDimension "store"
+            buildConfigField "String", "URDATE_URL", "\"http://mybestcalcforgoogleplay.com\""
+        }
+
+        Amazon {
+            flavorDimension "store"
+            buildConfigField "String", "UPDATE_URL", "\"http://mybestcalcforamazon.com\""
         }
     }
 }
@@ -26,5 +44,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.google.code.gson:gson:2.7'
     testCompile 'junit:junit:4.12'
+    compile project(path: ':lib')
 }
